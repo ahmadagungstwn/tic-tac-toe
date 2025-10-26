@@ -4,37 +4,240 @@
   padding: 0;
 }
 
-.square {
-  background: #fff;
-  border: 1px solid #999;
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.game {
+  max-width: 800px;
+  margin: 0 auto;
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.game-header {
+  background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+  color: white;
+  padding: 30px;
+  text-align: center;
+}
+
+.game-header h1 {
+  font-size: 2.5em;
+  margin: 0;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.game-content {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  padding: 30px;
+  gap: 30px;
+}
+
+@media (min-width: 768px) {
+  .game-content {
+    flex-direction: row;
+  }
+}
+
+.board-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  font-size: 24px;
+}
+
+.status {
+  font-size: 1.3em;
+  margin-bottom: 25px;
+  text-align: center;
+  font-weight: 600;
+  padding: 15px 25px;
+  border-radius: 50px;
+  background: #f8f9fa;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.status-winner {
+  color: #27ae60;
+}
+
+.status-draw {
+  color: #e74c3c;
+}
+
+.status-next {
+  color: #2c3e50;
+}
+
+.player-X {
+  color: #e74c3c;
   font-weight: bold;
-  line-height: 34px;
-  height: 50px;
-  width: 50px;
-  cursor: pointer;
+}
+.player-O {
+  color: #3498db;
+  font-weight: bold;
 }
 
 .board {
   display: flex;
-  flex-wrap: wrap;
-  width: 150px;
-  height: 150px;
-  margin: 20px auto;
+  flex-direction: column;
+  gap: 8px;
+  background: #34495e;
+  padding: 15px;
+  border-radius: 15px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
 }
 
-.status {
-  margin-bottom: 10px;
+.board-row {
+  display: flex;
+  gap: 8px;
+}
+
+.square {
+  background: #ecf0f1;
+  border: none;
+  border-radius: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
+  font-size: 2em;
+  font-weight: bold;
+  height: 80px;
+  width: 80px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.game {
+.square:hover {
+  background: #d5dbdb;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.square.filled {
+  background: white;
+}
+
+.square.winning {
+  background: linear-gradient(135deg, #f1c40f, #e67e22);
+  color: white;
+  animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.game-info {
+  flex: 1;
+  min-width: 250px;
+}
+
+.game-controls {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  gap: 10px;
+  margin-bottom: 25px;
+}
+
+.reset-button,
+.sort-button {
+  padding: 15px 20px;
+  border: none;
+  border-radius: 10px;
+  font-size: 1em;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+}
+
+.reset-button {
+  background: linear-gradient(135deg, #e74c3c, #c0392b);
+  color: white;
+}
+
+.sort-button {
+  background: linear-gradient(135deg, #3498db, #2980b9);
+  color: white;
+}
+
+.reset-button:hover,
+.sort-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.moves-section h3 {
+  color: #2c3e50;
+  margin-bottom: 15px;
+  font-size: 1.3em;
+}
+
+.moves-list {
+  list-style: none;
+  max-height: 300px;
+  overflow-y: auto;
+  border: 2px solid #ecf0f1;
+  border-radius: 10px;
+  padding: 15px;
+}
+
+.move-button {
+  width: 100%;
+  padding: 12px 15px;
+  margin: 5px 0;
+  border: 2px solid #bdc3c7;
+  border-radius: 8px;
+  background: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: left;
+  font-size: 0.95em;
+}
+
+.move-button:hover {
+  background: #ecf0f1;
+  border-color: #95a5a6;
+}
+
+.move-button.current {
+  background: #3498db;
+  color: white;
+  border-color: #2980b9;
+}
+
+/* Scrollbar styling */
+.moves-list::-webkit-scrollbar {
+  width: 8px;
+}
+
+.moves-list::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+.moves-list::-webkit-scrollbar-thumb {
+  background: #bdc3c7;
+  border-radius: 4px;
+}
+
+.moves-list::-webkit-scrollbar-thumb:hover {
+  background: #95a5a6;
 }
